@@ -63,15 +63,15 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-## How to use GitHup
+## How to use GitHub
 
-git init
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin https://github.com/<username>/<repo-name>.git
-git push -u origin main
+- **git init **
+- **git add . **
+- **git commit -m "Initial commit" **
+- **git branch -M main **
+- **git remote add origin https://github.com/<username>/<repo-name>.git **
+- **git push -u origin main **
 
 ## Branching (แตกกิ่ง)
 
-git checkout -b name of branching
+- **git checkout -b name of branching **
