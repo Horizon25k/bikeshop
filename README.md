@@ -75,3 +75,6 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ## Branching (แตกกิ่ง)
 
 - git checkout -b name of branching
+
+## Token git 
+- Horizon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
