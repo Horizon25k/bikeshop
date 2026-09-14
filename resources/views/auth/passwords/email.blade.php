@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{ __('Reset Password') }}</div>
+                    <div class="panel-heading">{{ __('ลืมรหัสผ่าน') }}</div>
 
                     <div class="panel-body">
                         @if (session('status'))
@@ -18,7 +18,7 @@
                             @csrf
 
                             <div class="form-group @error('email') has-error @enderror">
-                                <label for="email" class="col-md-4 control-label">{{ __('Email Address') }}</label>
+                                <label for="email" class="col-md-4 control-label">{{ __('อีเมล') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control" name="email"
@@ -35,7 +35,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Send Password Reset Link') }}
+                                        {{ __('ยืนยัน') }}
                                     </button>
                                 </div>
                             </div>
