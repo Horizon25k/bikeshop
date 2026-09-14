@@ -9,66 +9,71 @@ use Config, Validator;
 
 class ProductController extends Controller
 {
-    public function index() {
-        $products = Product::all(); 
+    public function index()
+    {
+        $products = Product::all();
         return view('product/index', compact('products'));
     }
 
-    
-    public function search(Request $request) {
+
+    public function search(Request $request)
+    {
         $query = $request->q;
-        if($query) {
-            $products = Product::where('code', 'like', '%'.$query.'%')
-            ->orWhere('name', 'like', '%'.$query.'%')
-            ->get();
+        if ($query) {
+            $products = Product::where('code', 'like', '%' . $query . '%')
+                ->orWhere('name', 'like', '%' . $query . '%')
+                ->get();
         } else {
             $products = Product::all();
         }
         return view('product/index', compact('products'));
     }
 
-    public function edit($id = null) {
+    public function edit($id = null)
+    {
         $categories = Category::pluck('name', 'id')->prepend('เลือกรายการ', '');
-        if($id) {
+        if ($id) {
             $product = Product::find($id);
-        
+
             return view('product/edit')
-            ->with('product', $product)
-            ->with('categories', $categories);
+                ->with('product', $product)
+                ->with('categories', $categories);
         } else {
             return view('product/add')
-            ->with('categories', $categories);
-        }   
+                ->with('categories', $categories);
+        }
     }
 
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         $rules = array(
-        'code' => 'required', 
-        'name' => 'required',
-        'category_id' => 'required|numeric', 
-        'price' => 'numeric',
-        'stock_qty' => 'numeric',
+            'code' => 'required',
+            'name' => 'required',
+            'category_id' => 'required|numeric',
+            'price' => 'numeric',
+            'stock_qty' => 'numeric',
         );
 
         $messages = array(
-        'required' => 'กรุณากรอกข้อมูล :attribute ให้ครบถ้วน', 'numeric' => 'กรุณากรอกข้อมูล
+            'required' => 'กรุณากรอกข้อมูล :attribute ให้ครบถ้วน',
+            'numeric' => 'กรุณากรอกข้อมูล
         :attribute ให้เป็นตัวเลข',
         );
 
         $id = $request->id;
         $temp = array(
-            'name' => $request->name, 
+            'name' => $request->name,
             'code' => $request->code,
             'category_id' => $request->category_id,
         );
 
         $validator = Validator::make($temp, $rules, $messages);
         if ($validator->fails()) {
-            return redirect('product/edit/'.$id)
-            ->withErrors($validator)
-            ->withInput();
+            return redirect('product/edit/' . $id)
+                ->withErrors($validator)
+                ->withInput();
         }
-        
+
         $product = Product::find($id);
         $product->code = $request->code;
         $product->name = $request->name;
@@ -78,60 +83,65 @@ class ProductController extends Controller
 
         $product->save();
 
-        if($request->hasFile('image'))
-        {
+        if ($request->hasFile('image')) {
             $f = $request->file('image');
-            $upload_to = 'upload/images'; 
+            $upload_to = 'upload/images';
 
-            $relative_path = $upload_to.'/'.$f->getClientOriginalName();
-            $absolute_path = public_path().'/'.$upload_to;
+            $relative_path = $upload_to . '/' . $f->getClientOriginalName();
+            $absolute_path = public_path() . '/' . $upload_to;
 
             $f->move($absolute_path, $f->getClientOriginalName());
 
             $product->image_url = $relative_path;
             $product->save();
         }
-        
+
         return redirect('product')
-        ->with('ok', true)
-        ->with('msg', 'บันทึกขอมูลเรียบร้อยแล้ว');
+            ->with('ok', true)
+            ->with('msg', 'บันทึกขอมูลเรียบร้อยแล้ว');
     }
 
-    public function insert(Request $request) {
+    public function insert(Request $request)
+    {
 
         $product = new Product();
         $product->code = $request->code;
         $product->name = $request->name;
         $product->category_id = $request->category_id;
         $product->price = $request->price;
-        $product->stock_qty =$request->stock_qty;
-        
-        $product->save();
-        
-        if($request->hasFile('image')) 
-        {
-            $f = $request->file('image');
-            $upload_to = 'upload/images'; 
+        $product->stock_qty = $request->stock_qty;
 
-            $relative_path = $upload_to.'/'.$f->getClientOriginalName();
-            $absolute_path = public_path().'/'.$upload_to;
+        $product->save();
+
+        if ($request->hasFile('image')) {
+            $f = $request->file('image');
+            $upload_to = 'upload/images';
+
+            $relative_path = $upload_to . '/' . $f->getClientOriginalName();
+            $absolute_path = public_path() . '/' . $upload_to;
 
             $f->move($absolute_path, $f->getClientOriginalName());
 
             $product->image_url = $relative_path;
             $product->save();
         }
-        
+
         return redirect('product')
-        ->with('ok', true)
-        ->with('msg', 'เพิ่มข้อมูลเรียบร้อยแล้ว ');
+            ->with('ok', true)
+            ->with('msg', 'เพิ่มข้อมูลเรียบร้อยแล้ว ');
     }
 
-    public function remove($id) {
+    public function remove($id)
+    {
         Product::find($id)->delete();
         return redirect('product')
-        ->with('ok', true)
-        ->with('msg', 'ลบข้อมูลสําเร็จ');
+            ->with('ok', true)
+            ->with('msg', 'ลบข้อมูลสําเร็จ');
     }
+    public function construct()
+    {
+        $this->middleware('auth');
+    }
+
 }
 

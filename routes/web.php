@@ -49,3 +49,7 @@ Route::get('/cart/update/{id}/{qty}', [App\Http\Controllers\CartController::clas
 Route::get('/', function () {
     return view('layouts.master');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

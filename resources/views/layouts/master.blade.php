@@ -25,10 +25,26 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ URL::to('home') }}">หน้าแรก</a></li>
-                    <li><a href="{{ URL::to('product') }}">ข้อมูลสินค้า</a></li>
-                    <li><a href="{{ URL::to('category') }}">ข้อมูลประเภทสินค้า</a></li>
-                    <li><a href="#">รายงาน</a></li>
+                    <li><a href="{{ URL::to('home') }}">หน้าแรก</a></li> @guest
+                    @else
+                        <li><a href="{{ URL::to('product') }}">จัดการข้อมูลสินค้า </a></li>
+                    <li><a href="#">รายงาน</a></li> @endguest
+                </ul>
+                <ul class="nav navbar-nav navbar-right"> @guest
+                        <li><a href="{{ route('login') }}">ล็อกอิน</a></li>
+                        <li><a href="{{ route('register') }}">ลงทะเบียน</a></li>
+                    @else
+                        <li><a href="#">{{ Auth::user()->name }} </a></li>
+                        <li>
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                ออกจากระบบ
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                    </li> @endguest
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><i class="fa fa-shopping-cart"></i> ตะกร้า
