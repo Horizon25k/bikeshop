@@ -14,6 +14,7 @@
     <script src="{{ asset('js/jquery-4.0.0.min.js') }}"></script>
     <script src="{{ asset('js/angular.min.js') }}"></script>
     <script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
+
 </head>
 
 <body>

@@ -13,10 +13,9 @@ return [
     |
     */
 
-    'reset' => 'Your password has been reset!',
-    'sent' => 'We have emailed your password reset link!',
-    'throttled' => 'Please wait before retrying.',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that email address.",
-
+    'reset' => 'รหัสผ่านของคุณได้รับการรีเซ็ตเรียบร้อยแล้ว!',
+    'sent' => 'เราได้ส่งลิงก์สำหรับรีเซ็ตรหัสผ่านไปยังอีเมลของคุณแล้ว!',
+    'throttled' => 'กรุณารอสักครู่ก่อนลองใหม่อีกครั้ง',
+    'token' => 'โทเค็นสำหรับการรีเซ็ตรหัสผ่านนี้ไม่ถูกต้องหรือหมดอายุ',
+    'user' => 'ไม่พบผู้ใช้งานที่ตรงกับที่อยู่อีเมลนี้ในระบบ',
 ];
